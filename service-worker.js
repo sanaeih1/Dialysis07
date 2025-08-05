@@ -1,4 +1,4 @@
-const CACHE_NAME = 'dialysis-app-v5';
+const CACHE_NAME = 'dialysis-app-v6';
 const urlsToCache = [
   'https://sanaeih1.github.io/Dialysis07/',
   'https://sanaeih1.github.io/Dialysis07/index.html',
@@ -36,7 +36,13 @@ const urlsToCache = [
   'https://cdn.jsdelivr.net/npm/vazir-font@28.0.0/dist/font-face.css',
   'https://cdn.jsdelivr.net/npm/shabnam-font@5.0.0/dist/font-face.css',
   'https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js',
-  'https://cdn.jsdelivr.net/npm/chart.js'
+  'https://cdn.jsdelivr.net/npm/chart.js',
+  'https://www.aparat.com/video/video/embed/videohash/vhf4z5z/vt/frame',
+  'https://www.aparat.com/video/video/embed/videohash/hlqzdki/vt/frame',
+  'https://www.aparat.com/video/video/embed/videohash/ifu44gz/vt/frame',
+  'https://www.aparat.com/video/video/embed/videohash/lof5k6h/vt/frame',
+  'https://www.aparat.com/video/video/embed/videohash/hjc3195/vt/frame',
+  'https://www.aparat.com/video/video/embed/videohash/TUTORIAL123/vt/frame'
 ];
 
 self.addEventListener('install', event => {
@@ -48,15 +54,13 @@ self.addEventListener('install', event => {
       .then(() => {
         return self.skipWaiting();
       })
+      .catch(error => {
+        console.error('Cache failed to open or add resources:', error);
+      })
   );
 });
 
 self.addEventListener('fetch', event => {
-  const requestUrl = new URL(event.request.url);
-  if (requestUrl.origin === 'https://www.aparat.com') {
-    return fetch(event.request);
-  }
-
   event.respondWith(
     caches.match(event.request)
       .then(response => {
